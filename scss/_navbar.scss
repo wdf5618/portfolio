@@ -1,0 +1,149 @@
+// Navbar Button 
+.navbar-btn{
+    position: absolute;
+    top: 35px;
+    right: 35px;
+
+    cursor: pointer;
+
+    z-index: 3;
+
+    @include easeOut();
+
+    .btn-line{
+        width: 28px;
+        height: 3px;
+        background: set-text-color($primary-color);
+
+        margin: 0 0 5px 0;
+
+        @include easeOut();
+    }
+
+    // Rotate Into X with Navbar Lines
+    &.close{
+        transform: rotate(180deg);
+
+        .btn-line{
+            // Line 1 - Rotate 
+            &:nth-child(1){
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            // Line 2 - Rotate 
+            &:nth-child(2){
+                opacity: 0;
+            }
+
+            // Line 3 - Rotate 
+            &:nth-child(3){
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+    }
+}
+
+// Navbar Overlay
+.navbar{
+    width: 100%;
+
+    position: fixed;
+    top: 0;
+
+    opacity: 0.9;
+    visibility: hidden;
+
+    &.show{
+        visibility: visible;
+    }
+
+    &-branding, &-nav{
+        width: 50%;
+        height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column wrap;
+
+        float: left;
+        overflow: hidden;
+    }
+
+    &-nav{
+        background: darken($primary-color, 5);
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        transform: translate3d(0, -100%, 0);
+        @include easeOut();
+
+        &.show{
+            // Slide in from top
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    // Branding Side
+    &-branding{
+        background: $primary-color;
+        @include easeOut();
+
+        transform: translate3d(0, 100%, 0);
+
+        &.show{
+            // Slide in from bottom
+            transform: translate3d(0, 0, 0);
+        }
+
+        .portrait{
+            width: 250px;
+            height: 250px;
+            background: url('../../img/portrait.jpg');
+            border-radius: 50%;
+            border: 3px solid $secondary-color;
+        }
+    }
+
+    .nav-item{
+        transform: translate3d(600px, 0, 0);
+        @include easeOut();
+
+        &.show{
+            // Slide in from right
+            transform: translate3d(0, 0, 0);
+        }
+
+        &.current > a{
+            color: $secondary-color;
+        }
+    }
+
+    .nav-link{
+        font-size: 30px;
+        font-weight: 300;        
+        text-transform: uppercase;
+        text-decoration: none;
+        color: set-text-color($primary-color);
+        padding: 1rem 0;
+        
+        display: inline-block;
+
+        position: relative;
+
+        @include easeOut();
+
+        &:hover{
+            color: $secondary-color;
+        }
+    }
+
+}
+
+// Delay each nav item slide by 0.1s
+@for $x from 1 through 4{
+    .nav-item:nth-child(#{$x}){
+        transition-delay: $x * 0.1s;
+    }
+}
